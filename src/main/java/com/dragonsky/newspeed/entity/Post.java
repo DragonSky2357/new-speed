@@ -1,6 +1,7 @@
 package com.dragonsky.newspeed.entity;
 
 import com.dragonsky.newspeed.dto.post.CreatePostDto;
+import com.dragonsky.newspeed.dto.post.UpdatePostDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -14,7 +15,8 @@ import java.util.List;
 @Entity
 public class Post extends Timestamped{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "POST_ID")
     private Long id;
 
     @Column(nullable = false)
@@ -24,7 +26,7 @@ public class Post extends Timestamped{
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
     @OneToMany(mappedBy = "post")
@@ -34,5 +36,14 @@ public class Post extends Timestamped{
         this.title = createPostDto.getTitle();
         this.content = createPostDto.getContent();
         this.member = member;
+    }
+
+    public void updatePost(UpdatePostDto updatePostDto) {
+        if(checkContainDto(updatePostDto.getTitle())) this.title = updatePostDto.getTitle();
+        if(checkContainDto(updatePostDto.getContent())) this.content = updatePostDto.getContent();
+    }
+
+    private boolean checkContainDto(String data){
+        return ((data != null) && (!data.isEmpty()));
     }
 }
