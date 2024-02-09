@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.naming.AuthenticationException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(ResponseDto.fail(HttpStatus.BAD_REQUEST.value(),errors));
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
+    @ExceptionHandler({IllegalArgumentException.class, AuthenticationException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity handleIllegalArgumentExceptions(IllegalArgumentException ex) {
         return ResponseEntity.badRequest().body(ResponseDto.fail(HttpStatus.BAD_REQUEST.value(),ex.getMessage()));
