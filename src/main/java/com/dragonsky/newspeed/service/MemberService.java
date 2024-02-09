@@ -1,6 +1,7 @@
 package com.dragonsky.newspeed.service;
 
 import com.dragonsky.newspeed.dto.member.CreateMemberDto;
+import com.dragonsky.newspeed.dto.member.UpdateMemberDto;
 import com.dragonsky.newspeed.entity.Member;
 import com.dragonsky.newspeed.repository.MemberRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,5 +38,9 @@ public class MemberService {
         if (authentication != null) {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
+    }
+
+    public void updateMember(UpdateMemberDto updateMemberDto) {
+
     }
 }

@@ -1,6 +1,7 @@
 package com.dragonsky.newspeed.controller;
 
 import com.dragonsky.newspeed.common.dto.ResponseDto;
+import com.dragonsky.newspeed.dto.member.UpdateMemberDto;
 import com.dragonsky.newspeed.dto.member.CreateMemberDto;
 import com.dragonsky.newspeed.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,5 +28,11 @@ public class MemberController {
     public ResponseEntity<ResponseDto> logout(HttpServletRequest request, HttpServletResponse response) {
         memberService.logoutMember(request,response);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PutMapping("")
+    public ResponseEntity<ResponseDto> updateMember(@RequestBody @Valid UpdateMemberDto updateMemberDto){
+        memberService.updateMember(updateMemberDto);
+        return null;
     }
 }

@@ -15,6 +15,7 @@ import java.util.List;
 public class Member extends Timestamped{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="MEMBER_ID")
     private Long id;
 
     @Column(nullable = false)
@@ -37,6 +38,9 @@ public class Member extends Timestamped{
 
     @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
     private List<Post> posts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
 
     public Member(CreateMemberDto createMemberDto, String passwordEncryption){
         this.username = createMemberDto.getUsername();
